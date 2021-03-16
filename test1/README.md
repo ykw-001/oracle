@@ -23,9 +23,12 @@
     and d.department_name in ('IT','Sales')
     GROUP BY d.department_name;
 ```
-1.使用第一个语句进行查询
+<p>1.使用第一个语句进行查询</p>
+
 ![节点](./1_1.png)
-2.优化建议如下
+
+<p>2.优化建议如下</p>
+
 ![节点](./1_2.png)
 没有优化建议
 
@@ -40,9 +43,12 @@
     GROUP BY d.department_name
     HAVING d.department_name in ('IT','Sales');
 ```
-3.使用第二个语句进行查询
+<p>3.使用第二个语句进行查询</p>
+
 ![节点](./2_1.png)
-4.优化建议如下
+
+<p>4.优化建议如下</p>
+
 ![节点](./2_2.png)
 没有优化建议
 
