@@ -33,105 +33,7 @@ PL/SQL设计	存储过程和函数设计正确	25
 
 
 
-一、需求分析
-
-1、背景分析
-
-
-随着图书馆规模的不断扩大，图书数量也相应的增加，有关图书的各种信息量也成倍增加，面对着庞大的信息量，传统的人工方式管理会导致图书馆管理上的混乱，人力与物力过多浪费，图书馆管理费用的增加，从而使图书馆的负担过重，影响整个图书馆的运作和控制管理，因此，必须制定一套合理、有效，规范和实用的图书管理系统，对图书资料进行集中统一的管理
-
-同时，IT产业和互联网获得了飞速发展，计算机应用已渗透到了各个领域，引起了信息管理的革命，实现了信息的自动化处理，提高了处理的及时性和正确性。
-
-提高图书管理工作效率，作到信息的规范管理，科学统计和快速查询，让图书馆更好的为学校，社会服务。
-
-2、数据结构需求分析
-
-图书馆管理信息系统需要完成功能主要有：
-
-(1) 读者基本信息的输入，包括借书证编号、读者姓名、读者性别。
-
-(2) 读者基本信息的查询、修改，包括读者借书证编号、读者姓名、读者性别等。
-
-(3) 书籍类别标准的制定、类别信息的输入，包括类别编号、类别名称。
-
-(4) 书籍类别信息的查询、修改，包括类别编号、类别名称。
-
-(5) 书籍库存信息的输入，包括书籍编号、书籍名称、书籍类别、作者姓名、出版社名称。
-
-(6) 书籍库存信息的查询，修改，包括书籍编号、书籍名称、书籍类别、作者姓名、出版社名称等。
-
-(7) 借书信息的输入，包括读者借书证编号、书籍编号。
-
-(8) 借书信息的查询、修改，包括借书证编号、读者编号、读者姓名、书籍编号、书籍名称等。
-
-(9) 还书信息的输入，包括借书证编号、书籍编号。
-
-(10) 还书信息的查询和修改，包括还书读者借书证编号、读者姓名、书籍编号、书籍名称等。
-
-(11) 超期还书罚款输入，还书超出期限包括超出期限还书的读者借书证号，书籍编号，罚款金额。
-
-(12) 超期还书罚款查询，删除，包括读者借书证编号、读者姓名、书籍编号、书籍名称，罚款金额等
-
-3、事务处理需求分析
-
-
-(1)在读者信息管理部分,要求:
-
-a.可以查询读者信息。
-
-
-
-b.可以对读者信息进行添加及删除的操作。
-
-
-(2 )在书籍信息管理部分,要求:
-
-
-a.可以浏览书籍信息,要求:
-
-b.可以对书籍信息进行维护,包括添加及删除的操作。
-
-(3)在借阅信息管理部分,要求:。
-
-a.可以浏览借阅信息。
-
-b.可以对借阅信息进行维护操作。
-
-(4)在归还信息管理部分，要求:
-
-a.可以浏览归还信息
-
-b.对归还信息可修改维护操作
-
-(5)在管理者信息管理部分,要求:
-
-a.显示当前数据库中管理者情况。
-
-b.对管理者信息维护操作。
-
-(6)在罚款信息管理部分,要求:
-
-a.可以浏览罚款信息
-
-b.对罚款信息可以更新
-
-4、关系模式
-
-(1)	书籍类别（种类编号，种类名称）
-
-(2)	读者（借书证编号，读者姓名，读者性别，读者种类）
-
-(3)	书籍（书籍编号，书籍名称，书籍类别，书记作者，出版社名称）
-
-(4)	借阅（借书证编号，书籍编号）
-
-(5)	还书（借书证编号，书籍编号）
-
-(6)	罚款（借书证编号，读者姓名，借书证编号，书籍编号）
-
-以上通过关系代数方法的进行运算得到所需要的结果，在实验结果中可以看到。
-
-二、方案图表设计
+一、方案图表设计
 
 根据所要实现的功能设计，可能建立它们之间的关系，进而实现逻辑结构功能。
 
@@ -156,18 +58,16 @@ b.对罚款信息可以更新
 
 7、总的信息实体E-R图：（参考test6_design.docx）
 
-
-
 8、数据字典
 
-表2-1　 book_sytle 书籍类别信息表
+表1-1　 book_sytle 书籍类别信息表
 
 | 表中列名     | 数据类型 | 可否为空       | 说明     |
 | ------------ | -------- | -------------- | -------- |
 | book_styleno | varchar  | not null(主键) | 种类编号 |
 | book_style   | Varchar  | not null       | 种类名称 |
 
-表2-2　　system_readers读者信息表格
+表1-2　　system_readers读者信息表格
 
 | 表中列名    | 数据类型 | 可否为空       | 说明         |
 | ----------- | -------- | -------------- | ------------ |
@@ -178,7 +78,7 @@ b.对罚款信息可以更新
 
 
 
-表2-3　system_book书籍信息表
+表1-3　system_book书籍信息表
 
 | 表中列名    | 数据类型 | 可否为空       | 说明       |
 | ----------- | -------- | -------------- | ---------- |
@@ -192,7 +92,7 @@ b.对罚款信息可以更新
 
 
 
-表2-4　borrow_record 借阅记录信息表
+表1-4　borrow_record 借阅记录信息表
 
 | 表中列名   | 数据类型 | 可否为空         | 说明           |
 | ---------- | -------- | ---------------- | -------------- |
@@ -202,7 +102,7 @@ b.对罚款信息可以更新
 
 
 
-表2-5　return_record 借阅记录信息表
+表1-5　return_record 借阅记录信息表
 
 | 表中列名    | 数据类型 | 可否为空         | 说明           |
 | ----------- | -------- | ---------------- | -------------- |
@@ -211,7 +111,7 @@ b.对罚款信息可以更新
 
 
 
-表2-6　reader_fee 罚款记录信息表
+表1-6　reader_fee 罚款记录信息表
 
 | reader_id   | varchar | Not null         | 读者借书证编号 |
 | ----------- | ------- | ---------------- | -------------- |
@@ -222,30 +122,25 @@ b.对罚款信息可以更新
 
 
 
-三、数据库各表实现
+二、数据库各表实现
 
 1、创建表空间与用户赋权
 
 ```sql
-create temporary tablespace user01.dbf 
-
-tempfile '/home/oracle/app/oracle/oradata/orcl/user01.dbf' 
-
-size 50m   on
-
-autoextend
-
+create tablespace Userspace
+datafile 'E:\oracle\oracledatabase\ORCL\user1.dbf'
+size 50m
+autoextend on
 next 50m maxsize 20480m
-
 extent management local;
 ```
 
 ```sql
-create tablespace user02.dbf
+create tablespace Userspace01
 
 logging
 
-datafile '/home/oracle/app/oracle/oradata/orcl/pdborcl/user02.dbf’
+datafile 'E:\oracle\oracledatabase\ORCL\user2.dbf’
 
 size 50m
 
@@ -281,9 +176,9 @@ grant connect to ft;
 create role role1;
 
 
-//授权connect，resource，creat view
+//授权connect，resource，create view
 
-grant connect，resource，creat view to role1;
+grant connect，resource，create view to role1;
 
 
 //创建普通用户moguohui 密码123
@@ -305,13 +200,9 @@ grant dba to moguohui;
 
 ```sql
 create table book_style
-
 ( 
-
    bookstyleno varchar(30) primary key,
-
    bookstyle varchar(30)
-
 );
 ```
 
@@ -322,29 +213,16 @@ create table book_style
 
 ```sql
 create table system_books
-
 ( 
-
-  bookid varchar(20) primary key,
-
-  bookname varchar(30) Not null, 
-
-  bookstyleno varchar(30) Not null,
-
-  bookauthor varchar(30),
-
-  bookpub varchar(30) ,
-
+  book_id varchar(20) primary key,
+  book_name varchar(30) Not null, 
+  book_styleno varchar(30) Not null,
+  book_author varchar(30),
+  book_pub varchar(30) ,
   isborrowed varchar (2) ,
-
-foreign key (bookstyleno) references book_style (bookstyleno)
-
+  foreign key (book_styleno) references book_style (bookstyleno)
 );
 ```
-
-
-
-
 
 
 
@@ -352,19 +230,13 @@ foreign key (bookstyleno) references book_style (bookstyleno)
 
 ```sql
 create table system_readers 
-
-( readerid varchar(9)primary key,
-
-  readername varchar(9)not null ,
-
-  readersex varchar(2) not null,
-
-  readertype varchar(10),
-
+( 
+  reader_id varchar(9)primary key,
+  reader_name varchar(9)not null ,
+  reader_sex varchar(2) not null,
+  reader_type varchar(10),
  );
 ```
-
-
 
 
 
@@ -372,15 +244,11 @@ create table system_readers
 
 ```sql
 create table borrow_record
-
-( bookid varchar(20)  primary key,
-
-  readerid varchar（9），  
-
-  foreign key (bookid) references system_books(bookid),
-
-  foreign key (readerid) references system_readers(readerid)
-
+(  
+  book_id varchar(20)  primary key,
+  reader_id varchar(9),
+  foreign key (book_id) references system_books(book_id),
+  foreign key (reader_id) references system_readers(reader_id)
 );
 ```
 
@@ -390,15 +258,11 @@ create table borrow_record
 
 ```sql
 create table return_record
-
-( bookid varchar(20) primary key,
-
-  readerid varchar(9),
-
-  foreign key (bookid) references system_books(bookid),
-
-  foreign key (readerid) references system_readers(readerid)
-
+( 
+  book_id varchar(20) primary key,
+  reader_id varchar(9),
+  foreign key (book_id) references system_books(book_id),
+  foreign key (reader_id) references system_readers(reader_id)
 );
 ```
 
@@ -408,21 +272,14 @@ create table return_record
 
 ```sql
 create table reader_fee
-
-( readerid varchar(9)not null,
-
-  readername varchar(9)not null ,
-
-  bookid varchar(20) primary key,
-
-  bookname varchar(30) Not null, 
-
-  bookfee varchar(30) ,
-
-  foreign key (bookid) references system_books(bookid),
-
-  foreign key (readerid) references system_readers(readerid)
-
+( 
+  reader_id varchar(9)not null,
+  reader_name varchar(9)not null ,
+  book_id varchar(20) primary key,
+  book_name varchar(30) Not null, 
+  book_fee varchar(30) ,
+  foreign key (book_id) references system_books(book_id),
+  foreign key (reader_id) references system_readers(reader_id)
 );
 ```
 
@@ -430,38 +287,26 @@ create table reader_fee
 
 8.存储过程实例
 
-为表borrow_record建存储过程test12（参考test6_design.docx）
+为表borrow_record建存储过程test12
 
 ```sql
 create or replace procedure test12
-
 is cursor c
-
 is 
-
 select *from borrow_record;
-
-
 v_emp c%rowtype;
-
 begin open c;
-
 loop fetch c into v_emp;
-
 exit when (c%notfound);
-
 dbms_output.putline(v_emp.nsrmc);
-
 end loop;
-
 close c;
-
 end test12;
 ```
 
 
 
-四、数据库实施
+三、数据库实施
 
 1、将书籍类别加入表book_style中
 
@@ -520,15 +365,10 @@ INSERT INTO system_books VALUES ('00125415152', '计算机原理', '6', '王爱�
 
 ```sql
 INSERT INTO system_readers VALUES ('X05620206', '陈特', '男', '学生')；
-
 INSERT INTO system_readers VALUES ('X05620207', '陈远鹏', '男', '学生' );
-
 INSERT INTO system_readers VALUES ('X05620204', '赵铭静', '女', '学生');
-
 INSERT INTO system_readers VALUES ('X05620202', '潘虹', '女', '学生');
-
 INSERT INTO system_readers VALUES ('008415', '蒋伟', '男', '教师' );
-
 INSERT INTO system_readers VALUES ('001456', '李叶风', '女', '教师');
 ```
 
@@ -537,71 +377,73 @@ INSERT INTO system_readers VALUES ('001456', '李叶风', '女', '教师');
 4、添加已借书读者的记录，同时将在已借出的借阅标记置
 
 ```sql
-insert into borrow_record(bookid,readerid)
+insert into borrow_record(book_id,reader_id)
 
-
-
-values('00125415152','X05620202')；
+values('00125415152','X05620202');
 
 update system_books
 
 set isborrowed=0
 
-where  bookid='00125415152'；
+where  book_id='00125415152';
 
 
 
-insert into borrow_record(bookid,readerid)
+insert into borrow_record(book_id,reader_id)
 
-values('00125415153','X05620206')；
-
-update system_books
-
-set isborrowed=0
-
-where  bookid='00125415153' and isborrowed='1'；
-
-
-
-
-insert into borrow_record(bookid,readerid
-
-values('5455515','X05620207')；
+values('00127415153','X05620206');
 
 update system_books
 
 set isborrowed=0
 
-where bookid='5455515' and  isborrowed='1'；
+where  bookid='00127415153' and isborrowed='1';
 
-insert into borrow_record(bookid,readerid）
+
+
+
+insert into borrow_record(book_id,reader_id
+
+values('5455515','X05620207');
+
+update system_books
+
+set isborrowed=0
+
+where book_id='5455515' and  isborrowed='1';
+
+                          
+insert into borrow_record(book_id,reader_id）
 values（'015115'，'X05620204'）
 
 //更新system_book
 
 set isborrowed=0
 
-where bookid='015115' and  isborrowed='1'；
+where book_id='015115' and  isborrowed='1';
 
-insert into borrow_record(bookid,readerid)
 
-values('15154656','001456')；
+insert into borrow_record(book_id,reader_id)
 
-update system_books
-
-set isborrowed=0
-
-where bookid='15154656' and  isborrowed='1'；
-
-insert into borrow_record(bookid,readerid)
-
-values('565800020','008415')；
+values('15154656','001456');
 
 update system_books
 
 set isborrowed=0
 
-where bookid='565800020' and  isborrowed='1'；
+where book_id='15154656' and  isborrowed='1';
+
+
+                          
+insert into borrow_record(book_id,reader_id)
+
+values('565800020','008415');
+
+update system_books
+
+set isborrowed=0
+
+where book_id='565800020' and  isborrowed='1';
 ```
 
 
