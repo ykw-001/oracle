@@ -27,69 +27,9 @@ PL/SQL设计	存储过程和函数设计正确	25
 
 备份方案	备份方案设计正确	25
 
-容灾方案	DataGuard设计正确	10
-
 得分合计
 
-2019 年  11  月  18 日
-
-
-目		录
-
-
-一、需求分析
-
-1、背景分析
-
-2、数据结构需求分析
-
-3、事务处理需求分析
-
-4、关系模式
-
-二、方案图表设计
-
-22、读者信息实体E-R图：
-
-3、信息实体E-R图：
-
-4、记录信息实体E-R图：
-
-5、记录信息实体E-R图：
-
-6、罚款信息实体E-R图：
-
-7、总的信息实体E-R图：
-
-8、数据字典
-
-三、数据库各表实现
-
-1、创建表空间
-
-2、书本类别表建立
-
-3、创建书库表
-
-4、借书证表建立
-
-5、借书记录表建立
-
-6、还书记录表建立
-
-7、罚款单表建立
-
-8、存储过程实例
-
-四、数据库实施
-
-五、总结
-
-六、备份与恢复
-
-七、参考文献
-
-
+2021  06月  10 日
 
 
 
@@ -201,37 +141,18 @@ b.对罚款信息可以更新
 
 总体E-R图:参考test6_design.docx
 
-
-
 1、图书类别实体E-R图（参考test6_design.docx）
-
-
 
 
 2、读者信息实体E-R图：（参考test6_design.docx）
 
-
 3、信息实体E-R图：（参考test6_design.docx）
-
-
-
-
 
 4、记录信息实体E-R图：（参考test6_design.docx）
 
-
-
-
 5、记录信息实体E-R图：（参考test6_design.docx）
 
-
-
-
-
 6、罚款信息实体E-R图：（参考test6_design.docx）
-
-
-
 
 7、总的信息实体E-R图：（参考test6_design.docx）
 
@@ -241,84 +162,63 @@ b.对罚款信息可以更新
 
 表2-1　 book_sytle 书籍类别信息表
 
-表中列名	数据类型	可否为空	说明
-
-
-
-book_styleno	varchar	not null(主键)	种类编号
-
-book_style	Varchar	not null	种类名称
-
-
+| 表中列名     | 数据类型 | 可否为空       | 说明     |
+| ------------ | -------- | -------------- | -------- |
+| book_styleno | varchar  | not null(主键) | 种类编号 |
+| book_style   | Varchar  | not null       | 种类名称 |
 
 表2-2　　system_readers读者信息表格
 
-表中列名	数据类型	可否为空	说明
-
-reader_id	varchar	not null(主键)	读者借书证号
-
-reader_name	varchar	not null	读者姓名
-
-reader_sex	varchar	not null	读者性别
-
-reader_type	varchar	null	读者种类
+| 表中列名    | 数据类型 | 可否为空       | 说明         |
+| ----------- | -------- | -------------- | ------------ |
+| reader_id   | varchar  | not null(主键) | 读者借书证号 |
+| reader_name | varchar  | not null       | 读者姓名     |
+| reader_sex  | varchar  | not null       | 读者性别     |
+| reader_type | varchar  | null           | 读者种类     |
 
 
 
 表2-3　system_book书籍信息表
 
-表中列名	数据类型	可否为空	说明
+| 表中列名    | 数据类型 | 可否为空       | 说明       |
+| ----------- | -------- | -------------- | ---------- |
+| book_id     | Varchar  | Not null(主键) | 书籍编号   |
+| book_name   | Varchar  | Not null       | 书籍名称   |
+| book_style  | Varchar  | Not null       | 书籍类别   |
+| book_author | Varchar  | Not null       | 书籍作者   |
+| book_pub    | Varchar  | Null           | 出版社名称 |
+| isborrowed  | Varchar  | Not Null       | 是否被借出 |
 
-book_id	Varchar	Not null(主键)	书籍编号
 
-book_name	Varchar	Not null	书籍名称
-
-book_style	Varchar	Not null	书籍类别
-
-book_author	Varchar	Not null	书籍作者
-
-book_pub	Varchar    
-出版社名称
-isborrowed	Varchar	Not Null	是否被借出
 
 
 表2-4　borrow_record 借阅记录信息表
 
-表中列名	数据类型	可否为空	说明
-
-reader_id	Varchar	Not null(外主键)	读者借阅证编号
-
-book_id	Varchar	Not null(外主键)	书籍编号
-
-borrow_date	Varchar	Not null	读者借书时间
-
-
+| 表中列名   | 数据类型 | 可否为空         | 说明           |
+| ---------- | -------- | ---------------- | -------------- |
+| reader_id  | Varchar  | Not null(外主键) | 读者借阅证编号 |
+| book_id    | Varchar  | Not null(外主键) | 书籍编号       |
+| borrowdate | Varchar  | Not null         | 读者借书时间   |
 
 
 
 表2-5　return_record 借阅记录信息表
 
-表中列名	数据类型	可否为空	说明
-
-reader_name	Varchar	Not null(外主键)	读者借阅证编号
-
-reader_id	Varchar	Not null(外主键)	书籍编号
+| 表中列名    | 数据类型 | 可否为空         | 说明           |
+| ----------- | -------- | ---------------- | -------------- |
+| reader_name | Varchar  | Not null(外主键) | 读者借阅证编号 |
+| reader_id   | Varchar  | Not null(外主键) | 书籍编号       |
 
 
 
 表2-6　reader_fee 罚款记录信息表
 
-reader_id   varchar	Not null	读者借书证编号
-
-reader_name	varchar	Not null	读者姓名
-
-book_id	varchar	Not null(外主键)	书籍编号
-
-book_name	varchar	Not null	书籍名称
-
-book_fee	varchar	Not Null	罚款金额
-
-
+| reader_id   | varchar | Not null         | 读者借书证编号 |
+| ----------- | ------- | ---------------- | -------------- |
+| reader_name | varchar | Not null         | 读者姓名       |
+| book_id     | varchar | Not null(外主键) | 书籍编号       |
+| book_name   | varchar | Not null         | 书籍名称       |
+| book_fee    | varchar | Not Null         | 罚款金额       |
 
 
 
@@ -326,6 +226,7 @@ book_fee	varchar	Not Null	罚款金额
 
 1、创建表空间与用户赋权
 
+```sql
 create temporary tablespace user01.dbf 
 
 tempfile '/home/oracle/app/oracle/oradata/orcl/user01.dbf' 
@@ -337,9 +238,9 @@ autoextend
 next 50m maxsize 20480m
 
 extent management local;
+```
 
-
-
+```sql
 create tablespace user02.dbf
 
 logging
@@ -353,50 +254,48 @@ autoextend on
 next 50m maxsize 20480m
 
 extent management local;
+```
 
 
 1.1
 
-创建角色role2
+```sql
+//创建角色role2
 
 create role role2
 
-创建用户ft
+//创建用户ft
 
 create user ft;
 
-赋予角色ft权限connect
+//赋予角色ft权限connect
 
 grant connect to ft;
+```
 
 1.2
 
-
-创建普通角色role1
-
+```
+//创建普通角色role1
 
 create role role1;
 
 
-授权connect，resource，creat view
+//授权connect，resource，creat view
 
 grant connect，resource，creat view to role1;
 
 
-
-创建普通用户moguohui 密码123
+//创建普通用户moguohui 密码123
 
 create user moguohui identified by 123 default tablespace user02 temporary tablespace temp;
 
 
 
-
-
-授权dba给moguohui（参考test6_design.docx）
+//授权dba给moguohui（参考test6_design.docx）
 
 grant dba to moguohui;
-
-
+```
 
 
 
@@ -404,6 +303,7 @@ grant dba to moguohui;
 
 2、书本类别表建立
 
+```sql
 create table book_style
 
 ( 
@@ -413,18 +313,14 @@ create table book_style
    bookstyle varchar(30)
 
 );
-
-
-
-
-
-
+```
 
 
 
 
 3、创建书库表
 
+```sql
 create table system_books
 
 ( 
@@ -435,18 +331,16 @@ create table system_books
 
   bookstyleno varchar(30) Not null,
 
-
   bookauthor varchar(30),
 
   bookpub varchar(30) ,
-
- 
 
   isborrowed varchar (2) ,
 
 foreign key (bookstyleno) references book_style (bookstyleno)
 
 );
+```
 
 
 
@@ -456,6 +350,7 @@ foreign key (bookstyleno) references book_style (bookstyleno)
 
 4、借书证表建立
 
+```sql
 create table system_readers 
 
 ( readerid varchar(9)primary key,
@@ -467,6 +362,7 @@ create table system_readers
   readertype varchar(10),
 
  );
+```
 
 
 
@@ -474,6 +370,7 @@ create table system_readers
 
 5、借书记录表建立
 
+```sql
 create table borrow_record
 
 ( bookid varchar(20)  primary key,
@@ -485,27 +382,31 @@ create table borrow_record
   foreign key (readerid) references system_readers(readerid)
 
 );
+```
 
 
 
 6、还书记录表建立
 
+```sql
 create table return_record
 
 ( bookid varchar(20) primary key,
 
   readerid varchar(9),
 
-foreign key (bookid) references system_books(bookid),
+  foreign key (bookid) references system_books(bookid),
 
   foreign key (readerid) references system_readers(readerid)
 
 );
+```
 
 
 
 7、罚款单表建立
 
+```sql
 create table reader_fee
 
 ( readerid varchar(9)not null,
@@ -518,25 +419,21 @@ create table reader_fee
 
   bookfee varchar(30) ,
 
-   foreign key (bookid) references system_books(bookid),
+  foreign key (bookid) references system_books(bookid),
 
   foreign key (readerid) references system_readers(readerid)
 
 );
+```
 
 
 
 8.存储过程实例
 
-
-
 为表borrow_record建存储过程test12（参考test6_design.docx）
 
-
-
+```sql
 create or replace procedure test12
-
-
 
 is cursor c
 
@@ -560,6 +457,7 @@ end loop;
 close c;
 
 end test12;
+```
 
 
 
@@ -567,9 +465,8 @@ end test12;
 
 1、将书籍类别加入表book_style中
 
+```sql
 INSERT INTO  book_style VALUES ('1', '人文艺术类');
-
-
 
 INSERT INTO  book_style VALUES ('2', '自然科学类');
 
@@ -581,11 +478,12 @@ INSERT INTO  book_style VALUES ('5', '政治经济类');
 
 INSERT INTO  book_style VALUES ('6', '工程技术类');
 
-INSERT INTO book_style VALUES（'7'，'语言技能能类'）；
-
+INSERT INTO book_style VALUES（'7'，'语言技能能类');
+```
 
 2、将已有的图书加入system_books表中
 
+```sql
 INSERT INTO system_books VALUES ('00127415153', '计算机原理', '6', '王爱英', '清华大学', '0');
 
 
@@ -615,13 +513,12 @@ INSERT INTO system_books VALUES ('5658', '影视文学', '4', '苏庆东', '北�
 
 INSERT INTO system_books VALUES ('565800020', '宇宙奥秘', '2', '苏庆东', '北京大学',  '0');
 
-
-
 INSERT INTO system_books VALUES ('00125415152', '计算机原理', '6', '王爱英', '清华大学',  '0');
-
+```
 
 3、将已有图书证的读者加入system_readers表中
 
+```sql
 INSERT INTO system_readers VALUES ('X05620206', '陈特', '男', '学生')；
 
 INSERT INTO system_readers VALUES ('X05620207', '陈远鹏', '男', '学生' );
@@ -633,13 +530,13 @@ INSERT INTO system_readers VALUES ('X05620202', '潘虹', '女', '学生');
 INSERT INTO system_readers VALUES ('008415', '蒋伟', '男', '教师' );
 
 INSERT INTO system_readers VALUES ('001456', '李叶风', '女', '教师');
-
+```
 
 
 
 4、添加已借书读者的记录，同时将在已借出的借阅标记置
 
-
+```sql
 insert into borrow_record(bookid,readerid)
 
 
@@ -651,10 +548,6 @@ update system_books
 set isborrowed=0
 
 where  bookid='00125415152'；
-
-
-
-
 
 
 
@@ -671,8 +564,6 @@ where  bookid='00125415153' and isborrowed='1'；
 
 
 
-
-
 insert into borrow_record(bookid,readerid
 
 values('5455515','X05620207')；
@@ -683,11 +574,10 @@ set isborrowed=0
 
 where bookid='5455515' and  isborrowed='1'；
 
-
 insert into borrow_record(bookid,readerid）
-值（'015115'，'X05620204'）
+values（'015115'，'X05620204'）
 
-更新system_book
+//更新system_book
 
 set isborrowed=0
 
@@ -712,230 +602,34 @@ update system_books
 set isborrowed=0
 
 where bookid='565800020' and  isborrowed='1'；
+```
 
 
-五、总结
 
-通过此次数据库的课程设计，真正达到了学与用的结合，增强了对数据库方面应用的理解，对自己今后参与开发数据库系统积累了不少经验，在实验过程中，从建立数据开始，对灵据库设计理念及思想上有更高的认识，从需求分析，到概念设计和逻辑设计，E-R图的表示，数据字典的创建，懂得了不少有关数据库开发过程中的知识，在实验中建表，及其关系模式，关系代数的建立及理解，将SQL语的查询语句用得淋漓尽致，增强了自己在数据库中应用SQL语言的灵活性，其中包括，插入、删除、修改、查询,牵涉表和表之间的联系，主建与外主键的定义，约束项的设置，使逻辑更严密，在学习过程中，我也能过上网查了不少资料，也看了一些别人设计的图书馆管理信息系统的设计报告，学以致用，自我创新，独立完成了这份自己的报告，从中在学到用，从用又到学，不断修改，系统更新。虽然不能达到完善系统，但也做到了尽善尽美，加强理论学习对完善系统会有很多帮助。
+五、备份与恢复
+1.全备份（参考test6_design.docx）
 
-六、备份与恢复
-1.全备份
+2.查看备份文件（参考test6_design.docx）
 
-[oracle@oracle-pc ~]$ cat rman_level0.sh
+3.查看备份内容（参考test6_design.docx）
 
+4.备份后修改数据（参考test6_design.docx）
 
-[oracle@oracle-pc ~]$ ./rman_level0.sh
+5.模拟数据库崩溃（参考test6_design.docx）
 
+6.恢复数据库（参考test6_design.docx）
 
+7.查看数据是否恢复（参考test6_design.docx）
 
-2.查看备份文件
+8.删除备份集（参考test6_design.docx）
 
 
 
-[oracle@oracle-pc ~]$ rman backup
 
 
 
-3.查看备份内容
 
-[oracle@oracle-pc ~]$ rman target /
 
-
-
-RMAN> list backup;
-
-List of Backup Sets
-
-
-==================
-
-
-
-
-4.备份后修改数据
-
-[oracle@oracle-pc ~]$ sqlplus moguohui/123@pdborcl
-
-
-
-SQL> create table ti(id varchar(15),name varchar(50));
-
-
-
-Table created.
-
-
-
-SQL> insert into t1 values(1,'zhang');
-
-
-
-1 row created;
-
-
-
-SQL> commit;
-
-
-
-Commit complete.
-
-
-
-SQL> select *from t1;
-
-
-
-ID              name
-
--------------------------------------
-
-1               zhang
-
-2               wang
-
-
-
-5.模拟数据库崩溃
-
-
-
-[oracle@oracle-pc ~]$ rm /home/oracle/app/oracle/oradata/orcl/pdborcl/
-
-SAMPLE_SCHEMA_users01.dbf
-
-
-
-
-
-删除数据库文件后修改数据
-
-
-
-[oracle@oracle-pc ~]$ sqlplus moguohui/123@pdborcl
-
-
-
-insert into t1 values(2,'wang');
-
-
-
-1 row created.
-
-
-
-SQL> commit;
-
-
-
-Commit complete.
-
-
-
-SQL> select * from t1;
-
-
-
-ID               NAME
-
------------------------------------------------------
-1                zhang
-
-2                wang
-
-
-
-
-
-
-
-6.恢复数据库
-
-
-
-SQL> shutdown abort
-
-
-
-ORACLE instance shut down
-
-
-
-SQL> startup mount
-
-
-
-ORACLE instance started
-
-
-
-
-
-[oracle @ oracle-pc〜] $ rman target/
-
-RMAN> restore database ;
-
-RMAN> recover database;
-
-
-
-RMAN> alter database open;
-
-RMAN> exit
-
-
-
-7查看数据是否恢复
-
-[oracle@oracle-pc ~]$ sqlplus moguohui/123@pdborcl
-
-
-
-SQL>select *from t1;
-
-
-
-ID             NAME
-
---------------------------------------------------
-
-
-
-1              zhang
-
-2              wang
-
-
-
-SQL>
-
-
-
-8删除备份集
-
-[oracle@oracle-pc ~]$ rman target
-
-
-
-DO yuu want to delete the above objects(enter YES or NO)?YES
-
-
-
-
-
-七、参考文献
-
-[1]张建勤.基于Oracle安全策略的研究.计算机光盘软件与应用,2013(10)
-
-[2]萨师煊.数据库原理.高等教育出版社,2006.8
-
-[3]庄王健.网页设计三剑客白金教程.电子工业出版社,2006.01
-
-[4]邹婷.Dreamweaver 8 标准教程.北京:中国青年出版社,2006,153-165
-
-[5]丁荣涛.商业网页设计与制作.北京:北京大学出版社.2006
-
-[6]互联网上提供的网页制作素材及特效
 
 
 
