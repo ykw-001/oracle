@@ -1,19 +1,6 @@
+# 姓名：晏康文 学号：201810414225 班级：软件工程18级2班
 
-期末项目设计报告
-
-题    目	基于Oracle的借书管理系统的数据库设计
-
-
-课    程	Oracle数据库应用
-
-学    院	计算机学院
-
-专    业	软件工程	年级	2018级
-
-学生姓名	晏康文	学号	201810414225
-
-指导教师	赵卫东	职称	副教授
-
+# 实验6（期末考核） 基于Oracle的借书系统数据库设计 
 
 | ***评分项*** | ***评分标准***               | ***满分*** | ***得分*** |
 | ------------ | ---------------------------- | ---------- | ---------- |
@@ -24,12 +11,11 @@
 | 备份方案     | 备份方案设计正确             | 25         |            |
 | **得分合计** |                              |            |            |
 
-
 2021  06月  10 日
 
 
 
-一、方案图表设计
+## 一、方案图表设计
 
 根据所要实现的功能设计，可能建立它们之间的关系，进而实现逻辑结构功能。
 
@@ -118,7 +104,7 @@
 
 
 
-二、数据库各表实现
+## 二、数据库各表实现
 
 1、创建表空间与用户赋权
 
@@ -302,7 +288,7 @@ end test12;
 
 
 
-三、数据库实施
+## 三、数据库实施
 
 1、将书籍类别加入表book_style中
 
@@ -444,26 +430,80 @@ where book_id='565800020' and  isborrowed='1';
 
 
 
-四、备份与恢复
-1.全备份（参考test6_design.docx）
+## 四、PL/SQL设计
 
-2.查看备份文件（参考test6_design.docx）
+## 3.1设计存储过程
 
-3.查看备份内容（参考test6_design.docx）
+```sql
+create or replace PACKAGE MyPack IS
+	-- 函数
+  FUNCTION Get_BookAmount(T NUMBER) RETURN NUMBER;
+  	-- 存储过程
+  PROCEDURE Get_READERS(V_SEX VARCHAR);
+END MyPack;
+/
 
-4.备份后修改数据（参考test6_design.docx）
+FUNCTION Get_BookAmount(T NUMBER) RETURN NUMBER
+  AS
+    N NUMBER(20,2);
+    BEGIN
+      SELECT COUNT(*) into N  FROM BOOK B;
+      RETURN N;
+    END;
 
-5.模拟数据库崩溃（参考test6_design.docx）
+PROCEDURE Get_READERS(V_SEX VARCHAR)
+  AS
+    LEFTSPACE VARCHAR(2000);
+    begin
+      for v in
+      (SELECT ID,NAME,SEX FROM READER WHERE V_SEX = SEX)
+      LOOP
+        DBMS_OUTPUT.PUT_LINE(NAME);
+      END LOOP;
+    END;
+END MyPack;
+/
+```
 
-6.恢复数据库（参考test6_design.docx）
-
-7.查看数据是否恢复（参考test6_design.docx）
-
-8.删除备份集（参考test6_design.docx）
 
 
+## 五、备份与恢复
 
+## 4.1手工方案
 
+手工备份数据库：就是将数据文件导出到磁盘，恢复的时候直接导入就行
+
+> 导出／导入 利用Export可将数据从数据库中提取出来，利用Import则可将提取出来的数据送回到Oracle数据库中去。 简单导出数据（Export）和导入数据（Import） Oracle支持三种方式类型的输出： 
+>
+> （１）、表方式（T方式），将指定表的数据导出。 
+>
+> （２）、用户方式（U方式），将指定用户的所有对象及数据导出。 
+>
+> （３）、全库方式（Full方式），瘵数据库中的所有对象导出。 数据导入（Import）的过程是数据导出（Export）的逆过程，分别将数据文件导入数据库和将数据库数据导出到数据文件。
+
+## 4.2自动备份
+
+```sql
+run{
+configure retention policy to redundancy 1;
+configure controlfile autobackup on;
+configure controlfile autobackup format for device type disk to 'D:\environment\oracle';
+configure default device type to disk;
+crosscheck backup;
+crosscheck archivelog all;
+allocate channel c1 device type disk;
+allocate channel c2 device type disk;
+allocate channel c3 device type disk;
+backup incremental level 0 database format 'D:\environment\oracle\level0_%d_%T_%U.bak';
+report obsolete;
+delete noprompt obsolete;
+delete noprompt expired backup;
+delete noprompt expired archivelog all;
+release channel c1;
+release channel c2;
+release channel c3;
+}
+```
 
 
 
